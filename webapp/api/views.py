@@ -4,12 +4,12 @@ from api.serializers import ClienteSerializer
 
 from rest_framework.generics import (ListAPIView,)
 
-#region ---- CRUD CLIENTE ----
+#region ---- CLIENTE ----
 
 class ClienteListApiView(ListAPIView):
     serializer_class = ClienteSerializer
 
     def get_queryset(self):
-        return Cliente.objects.all()
+        return Cliente.objects.filter(activo = True)
 
 #endregion
