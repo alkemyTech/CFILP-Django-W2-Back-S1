@@ -1,9 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.shortcuts import render,redirect, get_object_or_404
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
 from django.urls import reverse_lazy
-from django.views import View
-from django.shortcuts import get_object_or_404, redirect
-from .models import Empleado
+from .models import (Empleado, Cliente,)
 
 #Listar de empleados
 class EmpleadoListView(ListView):
@@ -51,3 +49,38 @@ class EmpleadoInactivosListView(ListView):
     def get_queryset(self):
         return Empleado.objects.filter(activo=False)
 '''
+
+# READ
+class ClienteListView(ListView):
+    model = Cliente
+    template_name = 'servicios/cliente-list.html'
+    query_set = Cliente.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+# CREATE
+class ClienteCreateView(CreateView):
+    model = Cliente
+    template_name = 'servicios/cliente-create.html'
+    fields = ['nombre', 'apellido', 'activo']
+    success_url = reverse_lazy('cliente-list')
+
+# UPDATE
+class ClienteUpdateView(UpdateView):
+    model = Cliente
+    fields = ['nombre', 'apellido', 'activo']
+    template_name = 'servicios/cliente-update.html'
+    success_url = reverse_lazy('cliente-list')
+
+# DELETE
+class ClienteActivoView(View):
+    def get(self, request, pk):
+        cliente = get_object_or_404(Cliente, pk=pk)
+        if cliente.activo == True:
+            cliente.activo = False
+        else: cliente.activo = True
+        cliente.save()
+        return redirect('cliente-list')
+
