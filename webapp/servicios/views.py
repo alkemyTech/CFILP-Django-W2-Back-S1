@@ -1,7 +1,81 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
 from django.urls import reverse_lazy
-from .models import (Empleado, Cliente,)
+from .models import (Empleado, Cliente, Servicio, Reserva)
+
+# Servicio
+class ServicioListView(ListView):
+    model = Servicio
+    template_name = 'servicio/servicio_list.html'
+    
+    def get_queryset(self):
+        return Servicio.objects.filter(activo=True)
+
+class ServicioCreateView(CreateView):
+    model =Servicio
+    fields = '__all__'
+    
+    template_name = 'servicio/servicio_form.html' 
+    success_url = reverse_lazy('servicio_list')
+
+class ServicioUpdateView(UpdateView):
+    model =Servicio
+    fields = '__all__'
+    
+    template_name = 'servicio/servicio_form.html' 
+    success_url = reverse_lazy('servicio_list')
+
+class ServicioDeactivateView(View):
+      def post(self, request, pk):
+        servicio = get_object_or_404(Servicio, pk=pk) 
+        servicio.activo = False
+        servicio.save()
+        return redirect('servicio_list')
+
+class ServicioRestoreView(View):
+    def post(self, request, pk):
+        servicio = get_object_or_404(Servicio, pk=pk)
+        servicio.activo = True
+        servicio.save()
+        return redirect('servicio_inactivos')
+    
+# ---------
+    
+# Reserva   
+        
+class ReservaListView(ListView):
+    model = Servicio
+    template_name = 'reserva/reserva_list.html'
+    
+    def get_queryset(self):
+        return Servicio.objects.filter(activo=True)
+
+class ReservaCreateView(CreateView):
+    model =Servicio
+    fields = '__all__'
+    
+    template_name = 'reserva/reserva_form.html' 
+    success_url = reverse_lazy('reserva_list')
+
+class ReservaUpdateView(UpdateView):
+    model = Reserva
+    fields = '__all__'
+    
+    template_name = 'reserva/reserva_form.html' 
+    success_url = reverse_lazy('reserva_list')
+    
+class ReservaDeleteView(DeleteView):
+    model = Reserva
+    fields = '__all__'
+    
+    template_name = 'reserva/reserva_form.html'
+    success_url = reverse_lazy('reserva_list')
+    
+
+    
+    
+# --------
+
 
 #Listar de empleados
 class EmpleadoListView(ListView):
@@ -50,7 +124,7 @@ class EmpleadoInactivosListView(ListView):
         return Empleado.objects.filter(activo=False)
 '''
 
-# READ
+# READ clientes
 class ClienteListView(ListView):
     model = Cliente
     template_name = 'servicios/cliente-list.html'
@@ -60,21 +134,21 @@ class ClienteListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
 
-# CREATE
+# CREATE clientes
 class ClienteCreateView(CreateView):
     model = Cliente
     template_name = 'servicios/cliente-create.html'
     fields = ['nombre', 'apellido', 'activo']
     success_url = reverse_lazy('cliente-list')
 
-# UPDATE
+# UPDATE clientes
 class ClienteUpdateView(UpdateView):
     model = Cliente
     fields = ['nombre', 'apellido', 'activo']
     template_name = 'servicios/cliente-update.html'
     success_url = reverse_lazy('cliente-list')
 
-# DELETE
+# DELETE clientes
 class ClienteActivoView(View):
     def get(self, request, pk):
         cliente = get_object_or_404(Cliente, pk=pk)
