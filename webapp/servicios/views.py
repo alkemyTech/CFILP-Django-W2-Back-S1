@@ -71,7 +71,7 @@ class ReservaDeleteView(DeleteView):
     fields = '__all__'
     
     template_name = 'reserva/reserva_form.html'
-    
+    success_url = reverse_lazy('reserva_list')
     
 
     
