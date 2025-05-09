@@ -4,6 +4,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from .models import Cliente
 
+
+
 # READ
 class ClienteListView(ListView):
     model = Cliente
@@ -13,19 +15,22 @@ class ClienteListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-    
+
+# CREATE
 class ClienteCreateView(CreateView):
     model = Cliente
     template_name = 'servicios/cliente-create.html'
     fields = ['nombre', 'apellido', 'activo']
     success_url = reverse_lazy('cliente-list')
 
+# UPDATE
 class ClienteUpdateView(UpdateView):
     model = Cliente
     fields = ['nombre', 'apellido', 'activo']
     template_name = 'servicios/cliente-update.html'
     success_url = reverse_lazy('cliente-list')
 
+# DELETE
 class ClienteActivoView(View):
     def get(self, request, pk):
         cliente = get_object_or_404(Cliente, pk=pk)
