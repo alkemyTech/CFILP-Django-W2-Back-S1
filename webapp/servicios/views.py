@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
 from django.urls import reverse_lazy
-from .models import (Empleado, Cliente, Servicio, Reserva)
+from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador)
 
 # Servicio
 class ServicioListView(ListView):
@@ -158,3 +158,43 @@ class ClienteActivoView(View):
         cliente.save()
         return redirect('cliente-list')
 
+      # Listado de coordinadores activos
+class CoordinadorListView(ListView):
+    model = Coordinador
+
+    def get_queryset(self):
+        return Coordinador.objects.filter(activo=True)
+
+# Crear un nuevo coordinador
+class CoordinadorCreateView(CreateView):
+    model = Coordinador
+    fields = ['nombre', 'apellido', 'numero_documento', 'activo']
+    success_url = reverse_lazy('coordinador_list')
+
+# Editar un coordinador existente
+class CoordinadorUpdateView(UpdateView):
+    model = Coordinador
+    fields = ['nombre', 'apellido', 'numero_documento', 'activo']
+    success_url = reverse_lazy('coordinador_list')
+
+# Baja lógica (desactivar)
+class CoordinadorDeactivateView(View):
+    def post(self, request, pk):
+        coordinador = get_object_or_404(Coordinador, pk=pk)
+        coordinador.activo = False
+        coordinador.save()
+        return redirect('coordinador_list')
+
+# Restaurar coordinador inactivo
+class CoordinadorRestoreView(View):
+    def post(self, request, pk):
+        coordinador = get_object_or_404(Coordinador, pk=pk)
+        coordinador.activo = True
+        coordinador.save()
+        return redirect('coordinador_inactivos')
+
+class CoordinadorInactivosListView(ListView):
+    model = Coordinador
+
+    def get_queryset(self):
+        return Coordinador.objects.filter(activo=False)

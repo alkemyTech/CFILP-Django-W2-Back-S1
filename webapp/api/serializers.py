@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from servicios.models import Cliente, Servicio, Reserva
+from servicios.models import Cliente, Servicio, Reserva, Coordinador
+
 
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,6 +12,12 @@ class ClienteSerializer(serializers.ModelSerializer):
             'activo'
         ]
         
+
+class CoordinadorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coordinador
+        fields = '__all__'
+
 class ServicioSerializer(serializers.ModelSerializer):
     """Serializador para el modelo Servicio.
     Convierte instancias a JSON y valida entradas."""
@@ -31,3 +38,4 @@ class ReservaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reserva
         fields = '__all__'
+
