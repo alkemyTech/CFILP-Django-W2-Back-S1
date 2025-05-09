@@ -25,5 +25,5 @@ urlpatterns = [
     path('reserva/', ReservaListView.as_view(), name='reserva_list'),
     path('reserva/nuevo/', ReservaCreateView.as_view(), name='reserva_create'),
     path('reserva/<int:pk>/editar/', ReservaUpdateView.as_view(), name='reserva_edit'),
-   
+    path('reserva/<int:pk>/eliminar/', ReservaDeleteView.as_view(), name='reserva_delete'),
 ]
