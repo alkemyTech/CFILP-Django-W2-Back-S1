@@ -8,6 +8,7 @@ from .views import (
     ReservaListView,
     ReservaCreateView,
     ReservaUpdateView,
+    ReservaDeleteView,
     EmpleadoListView,
     EmpleadoCreateView,
     EmpleadoUpdateView,
