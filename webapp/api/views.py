@@ -3,13 +3,13 @@ from servicios.models import Cliente, Servicio, Reserva
 from api.serializers import ClienteSerializer, ServicioSerializer, ReservaSerializer
 from rest_framework.generics import (ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView)
 
-#region ---- CRUD CLIENTE ----
+#region ---- CLIENTE ----
 
 class ClienteListApiView(ListAPIView):
     serializer_class = ClienteSerializer
 
     def get_queryset(self):
-        return Cliente.objects.all()
+        return Cliente.objects.filter(activo = True)
 
 #endregion
 
