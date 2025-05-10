@@ -1,11 +1,6 @@
 from django.shortcuts import render
-<<<<<<< HEAD
 from servicios.models import Cliente, Servicio, Reserva, Coordinador, Empleado
 from api.serializers import ClienteSerializer, ServicioSerializer, ReservaSerializer, CoordinadorSerializer, EmpleadosSerializer
-=======
-from servicios.models import Cliente, Servicio, Reserva, Coordinador
-from api.serializers import ClienteSerializer, ServicioSerializer, ReservaSerializer, CoordinadorSerializer
->>>>>>> 254ec8a1e2c99c64aabfaa4cd764c9bdce550ac9
 from rest_framework.generics import (ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView)
 from rest_framework import generics
 
