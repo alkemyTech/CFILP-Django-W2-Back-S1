@@ -119,6 +119,6 @@ class CoordinadorAdmin(BajaLogica):
 
 @admin.register(Reserva)
 class ReservaAdmin(admin.ModelAdmin):
-    list_display = ("id", "cliente", "servicio", "fecha_servicio", "fecha_reserva")
+    list_display = ("id", "cliente", "servicio", "fecha_servicio", "fecha_reserva", "coordinador")
     search_fields = ("cliente__nombre", "servicio__nombre")
     list_filter = ("fecha_servicio", "servicio")
