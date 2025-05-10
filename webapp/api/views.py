@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from servicios.models import Cliente, Servicio, Reserva, Coordinador
-from api.serializers import ClienteSerializer, ServicioSerializer, ReservaSerializer, CoordinadorSerializer,
+from api.serializers import ClienteSerializer, ServicioSerializer, ReservaSerializer, CoordinadorSerializer
 from rest_framework.generics import (ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView)
 from rest_framework import generics
 
