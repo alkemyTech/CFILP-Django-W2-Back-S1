@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from servicios.models import Cliente, Servicio, Reserva, Coordinador
-from api.serializers import ClienteSerializer, ServicioSerializer, ReservaSerializer, CoordinadorSerializer,
+from api.serializers import ClienteSerializer, ServicioSerializer, ReservaSerializer, CoordinadorSerializer
 from rest_framework.generics import (ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView)
 from rest_framework import generics
 
@@ -14,15 +14,15 @@ class ClienteListApiView(ListAPIView):
 
 #endregion
 
-#---- COORDINADOR ----
+#region---- COORDINADOR ----
 class CoordinadorListAPIView(generics.ListAPIView):
-    queryset = Coordinador.objects.filter(activo=True)
     serializer_class = CoordinadorSerializer
 
-class CoordinadorDetailAPIView(generics.RetrieveAPIView):
-   queryset = Coordinador.objects.filter(activo=True)
-   serializer_class = CoordinadorSerializer
-  
+    def get_queryset(self):
+        return Coordinador.objects.filter(activo=True)
+    
+#endregion
+
 # region ----- Servicios
 class ServicioListApiView(ListAPIView):
     serializer_class = ServicioSerializer
