@@ -21,14 +21,57 @@ Esta es una aplicación web desarrollada en Python utilizando el framework Djang
 3. **Bajas Lógicas** Se ha implementado la funcionalidad de bajas lógicas para los siguientes modelos:
     
     -Coordinador
-
     -Cliente
-
     -Empleado
-
     -Servicio
 
 Esto significa que al "eliminar" una instancia, su campo activo se marca como False, evitando su borrado físico. También se implementaron vistas para restaurar registros dados de baja.
+
+## API REST
+
+La aplicación expone una API REST completa para consumir los modelos desde frontend, apps móviles o clientes externos. Todos los endpoints se encuentran bajo el prefijo `/api/`.
+
+### Endpoints de la API REST
+
+| Método | Endpoint                          | Descripción                           |
+|--------|-----------------------------------|---------------------------------------|
+| GET    | /api/servicios/                   | Listar servicios activos              |
+| GET    | /api/servicios/<id>/              | Ver detalle de un servicio            |
+| POST   | /api/servicios/create/            | Crear un nuevo servicio               |
+| PUT    | /api/servicios/<id>/update/       | Actualizar un servicio                |
+| DELETE | /api/servicios/<id>/delete/       | Baja lógica de un servicio            |
+
+| GET    | /api/clientes/                    | Listar clientes activos               |
+| GET    | /api/clientes/<id>/               | Ver detalle de un cliente             |
+| POST   | /api/clientes/create/             | Crear un nuevo cliente                |
+| PUT    | /api/clientes/<id>/update/        | Actualizar un cliente                 |
+| DELETE | /api/clientes/<id>/delete/        | Baja lógica de un cliente             |
+
+| GET    | /api/empleados/                   | Listar empleados activos              |
+| GET    | /api/empleados/<id>/              | Ver detalle de un empleado            |
+| POST   | /api/empleados/create/            | Crear un nuevo empleado               |
+| PUT    | /api/empleados/<id>/update/       | Actualizar un empleado                |
+| DELETE | /api/empleados/<id>/delete/       | Baja lógica de un empleado            |
+
+| GET    | /api/coordinadores/               | Listar coordinadores activos          |
+| GET    | /api/coordinadores/<id>/          | Ver detalle de un coordinador         |
+| POST   | /api/coordinadores/create/        | Crear un nuevo coordinador            |
+| PUT    | /api/coordinadores/<id>/update/   | Actualizar un coordinador             |
+| DELETE | /api/coordinadores/<id>/delete/   | Baja lógica de un coordinador         |
+
+| GET    | /api/reserva/                     | Listar todas las reservas             |
+| GET    | /api/reserva/<id>/                | Ver detalle de una reserva            |
+| POST   | /api/reserva/create/              | Crear una nueva reserva               |
+
+
+Todas las relaciones dentro de `Reserva` validan que la entidad esté activa.
+
+## Requisitos del sistema
+
+- Python 3.10 o superior
+- Django 5.x
+- pip
+- Sistema operativo compatible (Linux, Windows o macOS)
 
 
 ## Cómo Usar la Aplicación
@@ -70,6 +113,15 @@ Esto significa que al "eliminar" una instancia, su campo activo se marca como Fa
 
 7. **Acceso al Admin**:
     Ve a `http://127.0.0.1:8000/admin` para gestionar los datos desde la interfaz de administración.
+
+## Carga de servicios base
+
+Para crear automáticamente los servicios iniciales, ejecutá el siguiente script desde la raíz del proyecto:
+
+```bash
+python manage.py shell < scripts/cargar_datos_iniciales.py
+```
+
 
 
 Desarrollado por Soraya Violini, Enzo Bonino, Gonzalo Fernandez y José Herrera.
