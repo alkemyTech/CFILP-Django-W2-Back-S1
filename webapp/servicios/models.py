@@ -43,8 +43,12 @@ class Coordinador(models.Model):
     fecha_alta = models.DateTimeField(auto_now_add=True)
     activo = models.BooleanField(default=True) 
 
+    def desactivar(self):
+        self.activo = False
+        self.save()
+        
     def __str__(self):
-        return f"{self.nombre} {self.apellido} - {self.numero_documento}"
+        return f"{self.nombre} {self.apellido}"
 
 class Reserva(models.Model):
     fecha_reserva = models.DateField(auto_now_add=True)

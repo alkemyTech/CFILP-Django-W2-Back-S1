@@ -23,10 +23,11 @@ class FiltroEstado(SimpleListFilter):
     def lookups(self, request, model_admin):
         return (
             ('True', 'Activos'),
-            ('False', 'Inactivos'),
-        )
-
+            ('False', 'Inactivos'),)
+    
     def queryset(self, request, queryset):
+        """Filtro según estado lógico activos, inactivos, todos"""
+    
         if self.value() == 'True':
             return queryset.filter(activo=True)
         if self.value() == 'False':
@@ -44,7 +45,7 @@ class BajaLogica(admin.ModelAdmin):
         - Restaurar varios objetos al mismo tiempo (acción masiva) """
 
     list_filter = (FiltroEstado,)  # Filtro lateral
-    actions = ["restaurar"]    # Acción masiva
+    actions = ["baja_logica_masiva", "restaurar_seleccionados"] # Acción masiva
 
     def get_urls(self):
         """ Agrega una url para restaurar obejeto"""
@@ -75,6 +76,18 @@ class BajaLogica(admin.ModelAdmin):
         """ Muestra el botón "Eliminar """
         
         return True
+    
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+    
+    @admin.action(description="Eliminar seleccionados")
+    def baja_logica_masiva(self, request, queryset):
+        """ Acción masiva para eliminar varios objetos al mismo tiempo"""
+        cantidad = queryset.update(activo=False)
+        self.message_user(request, f"{cantidad} objeto(s) dado(s) de baja.")
 
     @admin.action(description="Restaurar seleccionados")
     def restaurar_seleccionados(self, request, queryset):
@@ -119,6 +132,6 @@ class CoordinadorAdmin(BajaLogica):
 
 @admin.register(Reserva)
 class ReservaAdmin(admin.ModelAdmin):
-    list_display = ("id", "cliente", "servicio", "fecha_servicio", "fecha_reserva")
+    list_display = ("id", "cliente", "servicio", "fecha_servicio", "fecha_reserva", "coordinador")
     search_fields = ("cliente__nombre", "servicio__nombre")
     list_filter = ("fecha_servicio", "servicio")
