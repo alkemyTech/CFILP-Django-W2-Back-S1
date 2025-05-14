@@ -1,32 +1,34 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View, TemplateView
 from django.urls import reverse_lazy
 from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador)
 
+# View
+class HomeView(TemplateView):   
+    template_name = 'home.html'
+    
+#####   QUITAR O COMENTAR PARA PROBAR EL HOME ######    
 # Servicio
 class ServicioListView(ListView):
     model = Servicio
     template_name = 'servicio/servicio_list.html'
-    
     def get_queryset(self):
         return Servicio.objects.filter(activo=True)
 
 class ServicioCreateView(CreateView):
     model =Servicio
     fields = '__all__'
-    
     template_name = 'servicio/servicio_form.html' 
     success_url = reverse_lazy('servicio_list')
 
 class ServicioUpdateView(UpdateView):
     model =Servicio
     fields = '__all__'
-    
     template_name = 'servicio/servicio_form.html' 
     success_url = reverse_lazy('servicio_list')
 
 class ServicioDeactivateView(View):
-      def post(self, request, pk):
+    def post(self, request, pk):
         servicio = get_object_or_404(Servicio, pk=pk) 
         servicio.activo = False
         servicio.save()
@@ -38,45 +40,32 @@ class ServicioRestoreView(View):
         servicio.activo = True
         servicio.save()
         return redirect('servicio_inactivos')
-    
 # ---------
-    
-# Reserva   
-        
+# Reserva 
 class ReservaListView(ListView):
     model = Servicio
     template_name = 'reserva/reserva_list.html'
-    
     def get_queryset(self):
         return Servicio.objects.filter(activo=True)
 
 class ReservaCreateView(CreateView):
     model =Servicio
     fields = '__all__'
-    
     template_name = 'reserva/reserva_form.html' 
     success_url = reverse_lazy('reserva_list')
 
 class ReservaUpdateView(UpdateView):
     model = Reserva
     fields = '__all__'
-    
     template_name = 'reserva/reserva_form.html' 
     success_url = reverse_lazy('reserva_list')
-    
+
 class ReservaDeleteView(DeleteView):
     model = Reserva
     fields = '__all__'
-    
     template_name = 'reserva/reserva_form.html'
     success_url = reverse_lazy('reserva_list')
-    
-
-    
-    
 # --------
-
-
 #Listar de empleados
 class EmpleadoListView(ListView):
     model = Empleado
@@ -84,12 +73,12 @@ class EmpleadoListView(ListView):
 
     def get_queryset(self):
         return Empleado.objects.filter(activo=True) #muestro solos los que esten activos
-    
+
 #Crear empleados
 class EmpleadoCreateView(CreateView):
     model = Empleado
     fields = ['nombre', 'apellido', 'numero_legajo', 'activo']
-    template_name = 'empleados/empleado_form.html'  # Formulario
+    template_name = 'empleados/empleado_form.html' # Formulario
     success_url = reverse_lazy('empleado_list')
 
 #Editar empleados
@@ -98,8 +87,7 @@ class EmpleadoUpdateView(UpdateView):
     fields = ['nombre', 'apellido', 'numero_legajo', 'activo']
     template_name = 'empleados/empleado_form.html'
     success_url = reverse_lazy('empleado_list')
-    
-    
+
 class EmpleadoDeactivateView(View):
     def post(self, request, pk):
         empleado = get_object_or_404(Empleado, pk=pk) 
@@ -117,11 +105,11 @@ class EmpleadoRestoreView(View):
 #Opcional
 '''
 class EmpleadoInactivosListView(ListView):
-    model = Empleado
-    template_name = 'empleados/empleado_inactivos.html'
+model = Empleado
+template_name = 'empleados/empleado_inactivos.html'
 
-    def get_queryset(self):
-        return Empleado.objects.filter(activo=False)
+def get_queryset(self):
+return Empleado.objects.filter(activo=False)
 '''
 
 # READ clientes
@@ -158,12 +146,12 @@ class ClienteActivoView(View):
         cliente.save()
         return redirect('cliente-list')
 
-      # Listado de coordinadores activos
+# Listado de coordinadores activos
 class CoordinadorListView(ListView):
     model = Coordinador
 
-    def get_queryset(self):
-        return Coordinador.objects.filter(activo=True)
+def get_queryset(self):
+    return Coordinador.objects.filter(activo=True)
 
 # Crear un nuevo coordinador
 class CoordinadorCreateView(CreateView):
@@ -196,5 +184,6 @@ class CoordinadorRestoreView(View):
 class CoordinadorInactivosListView(ListView):
     model = Coordinador
 
-    def get_queryset(self):
-        return Coordinador.objects.filter(activo=False)
+def get_queryset(self):
+    return Coordinador.objects.filter(activo=False)
+

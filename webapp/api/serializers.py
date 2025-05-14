@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from servicios.models import Cliente, Servicio, Reserva, Coordinador
+from servicios.models import Cliente, Servicio, Reserva, Coordinador, Empleado
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -11,6 +11,11 @@ class ClienteSerializer(serializers.ModelSerializer):
             'apellido',
             'activo'
         ]
+        
+class EmpleadosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Empleado
+        fields = '__all__'
         
 
 class CoordinadorSerializer(serializers.ModelSerializer):
