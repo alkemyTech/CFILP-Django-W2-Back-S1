@@ -78,7 +78,7 @@ Todas las relaciones dentro de `Reserva` validan que la entidad esté activa.
 
 1. **Clonar el Repositorio**:
     ```bash
-    git clone https://github.com/usuario/wepApp.git
+    git clone https://github.com/alkemyTech/CFILP-Django-W2-Back-S1.git
     cd wepApp
     ```
 2. **Activar un Entorono Virtual**:
@@ -119,7 +119,9 @@ Todas las relaciones dentro de `Reserva` validan que la entidad esté activa.
 Para crear automáticamente los servicios iniciales, ejecutá el siguiente script desde la raíz del proyecto:
 
 ```bash
-python manage.py shell < scripts/cargar_datos_iniciales.py
+python manage.py shell
+>>> from scripts.cargar_datos_iniciales import run           
+>>> run()
 ```
 
 

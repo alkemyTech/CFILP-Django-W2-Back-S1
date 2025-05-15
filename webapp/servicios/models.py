@@ -1,5 +1,7 @@
 from django.db import models
 
+#EMPLEADO
+
 # Creo el modelo Empleado que tiene los campos name, lastname, numero_legajo, active
 class Empleado(models.Model):
     nombre = models.CharField(max_length=50)
@@ -10,6 +12,7 @@ class Empleado(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
 
+#CLIENTE
 
 class Cliente(models.Model):
     nombre = models.CharField(max_length=50)
@@ -18,6 +21,8 @@ class Cliente(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
+
+# SERVICIO
 
 class Servicio(models.Model):
     
@@ -36,6 +41,8 @@ class Servicio(models.Model):
         verbose_name_plural = "Servicios"
         ordering = ['nombre']
 
+#COORDINADOR
+
 class Coordinador(models.Model):
     nombre = models.CharField(max_length=100) 
     apellido = models.CharField(max_length=100)
@@ -49,6 +56,8 @@ class Coordinador(models.Model):
         
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
+
+#RESERVA
 
 class Reserva(models.Model):
     fecha_reserva = models.DateField(auto_now_add=True)

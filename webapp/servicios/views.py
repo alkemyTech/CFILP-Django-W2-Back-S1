@@ -2,32 +2,41 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View, TemplateView
 from django.urls import reverse_lazy
 from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador)
-from .forms import ReservaForm
+from .forms import EmpleadoForm, CoordinadorForm, ReservaForm
+
 
 # View
 class HomeView(TemplateView):   
     template_name = 'home.html'
     
+    
 #####   QUITAR O COMENTAR PARA PROBAR EL HOME ######    
-# Servicio
+
+#region --------- SERVICIOS --------- 
+
+# READ
 class ServicioListView(ListView):
     model = Servicio
     template_name = 'servicio/servicio_list.html'
+
     def get_queryset(self):
         return Servicio.objects.filter(activo=True)
 
+# CREATE
 class ServicioCreateView(CreateView):
     model =Servicio
     fields = '__all__'
     template_name = 'servicio/servicio_form.html' 
     success_url = reverse_lazy('servicio_list')
 
+#UPDATE
 class ServicioUpdateView(UpdateView):
     model =Servicio
     fields = '__all__'
     template_name = 'servicio/servicio_form.html' 
     success_url = reverse_lazy('servicio_list')
 
+#DELETE
 class ServicioDeactivateView(View):
     def post(self, request, pk):
         servicio = get_object_or_404(Servicio, pk=pk) 
@@ -40,9 +49,11 @@ class ServicioRestoreView(View):
         servicio = get_object_or_404(Servicio, pk=pk)
         servicio.activo = True
         servicio.save()
-        return redirect('servicio_inactivos')
-# ---------
-# Reserva 
+        return redirect('servicio_list')
+#endregion
+
+#region --------- RESERVA ---------
+
 class ReservaListView(ListView):
     model = Reserva
     template_name = 'reserva/reserva_list.html'
@@ -66,11 +77,15 @@ class ReservaDeleteView(DeleteView):
     fields = '__all__'
     template_name = 'reserva/reserva_form.html'
     success_url = reverse_lazy('reserva_list')
-# --------
+#endregion
+
+#region --------- EMPlEADOS ---------
+
 #Listar de empleados
 class EmpleadoListView(ListView):
     model = Empleado
     template_name = 'empleados/empleado_list.html'
+    context_object_name = 'empleados'
 
     def get_queryset(self):
         return Empleado.objects.filter(activo=True) #muestro solos los que esten activos
@@ -78,14 +93,14 @@ class EmpleadoListView(ListView):
 #Crear empleados
 class EmpleadoCreateView(CreateView):
     model = Empleado
-    fields = ['nombre', 'apellido', 'numero_legajo', 'activo']
     template_name = 'empleados/empleado_form.html' # Formulario
     success_url = reverse_lazy('empleado_list')
+    form_class = EmpleadoForm
 
 #Editar empleados
 class EmpleadoUpdateView(UpdateView):
     model = Empleado
-    fields = ['nombre', 'apellido', 'numero_legajo', 'activo']
+    form_class = EmpleadoForm
     template_name = 'empleados/empleado_form.html'
     success_url = reverse_lazy('empleado_list')
 
@@ -112,30 +127,31 @@ template_name = 'empleados/empleado_inactivos.html'
 def get_queryset(self):
 return Empleado.objects.filter(activo=False)
 '''
+#endregion
+
+#region --------- CLIENTES ---------
 
 # READ clientes
 class ClienteListView(ListView):
     model = Cliente
-    template_name = 'servicios/cliente-list.html'
-    query_set = Cliente.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+    template_name = 'cliente/cliente_list.html'
+    
+    def get_queryset(self):
+        return Cliente.objects.filter(activo=True)
 
 # CREATE clientes
 class ClienteCreateView(CreateView):
     model = Cliente
-    template_name = 'servicios/cliente-create.html'
+    template_name = 'cliente/cliente_form.html'
     fields = ['nombre', 'apellido', 'activo']
-    success_url = reverse_lazy('cliente-list')
+    success_url = reverse_lazy('cliente_list')
 
 # UPDATE clientes
 class ClienteUpdateView(UpdateView):
     model = Cliente
     fields = ['nombre', 'apellido', 'activo']
-    template_name = 'servicios/cliente-update.html'
-    success_url = reverse_lazy('cliente-list')
+    template_name = 'cliente/cliente_form.html'
+    success_url = reverse_lazy('cliente_list')
 
 # DELETE clientes
 class ClienteActivoView(View):
@@ -145,11 +161,16 @@ class ClienteActivoView(View):
             cliente.activo = False
         else: cliente.activo = True
         cliente.save()
-        return redirect('cliente-list')
+        return redirect('cliente_list')
+#endregion
+
+#region --------- COORDINADORES ---------
 
 # Listado de coordinadores activos
 class CoordinadorListView(ListView):
     model = Coordinador
+    template_name = 'coordinadores/coordinador_list.html'
+    context_object_name = 'coordinadores'
 
     def get_queryset(self):
         return Coordinador.objects.filter(activo=True)
@@ -157,13 +178,15 @@ class CoordinadorListView(ListView):
 # Crear un nuevo coordinador
 class CoordinadorCreateView(CreateView):
     model = Coordinador
-    fields = ['nombre', 'apellido', 'numero_documento', 'activo']
     success_url = reverse_lazy('coordinador_list')
+    form_class = CoordinadorForm
+    template_name = 'coordinadores/coordinador_form.html'
 
 # Editar un coordinador existente
 class CoordinadorUpdateView(UpdateView):
     model = Coordinador
-    fields = ['nombre', 'apellido', 'numero_documento', 'activo']
+    form_class = CoordinadorForm
+    template_name = 'coordinadores/coordinador_form.html'
     success_url = reverse_lazy('coordinador_list')
 
 # Baja lógica (desactivar)
@@ -187,4 +210,6 @@ class CoordinadorInactivosListView(ListView):
 
     def get_queryset(self):
         return Coordinador.objects.filter(activo=False)
+
+#endregion
 
