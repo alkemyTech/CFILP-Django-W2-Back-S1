@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Coordinador</title>
+</head>
+<body>
+    <h2>{% if object %}Editar Coordinador{% else %}Crear Coordinador{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Guardar">
+    </form>
+    <a href="{% url 'coordinador_list' %}">Volver a la lista</a>
+</body>
+</html>
