@@ -17,8 +17,10 @@ class ClienteListApiView(ListAPIView):
 #region ---- COORDINADOR ----
 
 class CoordinadorListAPIView(generics.ListAPIView):
-    queryset = Coordinador.objects.filter(activo=True)
     serializer_class = CoordinadorSerializer
+    
+  def get_queryset(self):
+          return Coordinador.objects.filter(activo=True)
 
 class CoordinadorDetailAPIView(generics.RetrieveAPIView):
    queryset = Coordinador.objects.filter(activo=True)

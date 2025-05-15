@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Reserva</h1> 
+  <h2>Crear Reserva</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+  <a href="{% url 'reserva_list' %}">Volver</a>
+</div>

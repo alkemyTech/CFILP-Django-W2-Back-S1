@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View, TemplateView
 from django.urls import reverse_lazy
 from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador)
-from .forms import EmpleadoForm, CoordinadorForm
+from .forms import EmpleadoForm, CoordinadorForm, ReservaForm
+
 
 # View
 class HomeView(TemplateView):   
@@ -54,21 +55,21 @@ class ServicioRestoreView(View):
 #region --------- RESERVA ---------
 
 class ReservaListView(ListView):
-    model = Servicio
+    model = Reserva
     template_name = 'reserva/reserva_list.html'
     def get_queryset(self):
-        return Servicio.objects.filter(activo=True)
+        return Reserva.objects.all()
 
 class ReservaCreateView(CreateView):
-    model =Servicio
-    fields = '__all__'
+    model = Reserva
+    form_class = ReservaForm
     template_name = 'reserva/reserva_form.html' 
-    success_url = reverse_lazy('reserva_list')
+    success_url = reverse_lazy('reserva_list') 
 
 class ReservaUpdateView(UpdateView):
     model = Reserva
-    fields = '__all__'
-    template_name = 'reserva/reserva_form.html' 
+    form_class = ReservaForm 
+    template_name = 'reserva/reserva_update.html' 
     success_url = reverse_lazy('reserva_list')
 
 class ReservaDeleteView(DeleteView):
@@ -171,7 +172,6 @@ class CoordinadorListView(ListView):
     template_name = 'coordinadores/coordinador_list.html'
     context_object_name = 'coordinadores'
 
-
     def get_queryset(self):
         return Coordinador.objects.filter(activo=True)
 
@@ -208,6 +208,8 @@ class CoordinadorRestoreView(View):
 class CoordinadorInactivosListView(ListView):
     model = Coordinador
 
-def get_queryset(self):
-    return Coordinador.objects.filter(activo=False)
+    def get_queryset(self):
+        return Coordinador.objects.filter(activo=False)
+
 #endregion
+

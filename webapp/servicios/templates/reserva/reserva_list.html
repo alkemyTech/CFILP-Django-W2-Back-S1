@@ -1,0 +1,11 @@
+<h2>Reservas</h2>
+<a href="{% url 'reserva_create' %}">Nueva Reserva</a>
+<ul>
+  {% for r in object_list %}
+    <li>
+      {{ r.servicio.nombre }} reservado por {{ r.cliente.nombre }} para {{ r.fecha_servicio }}
+      |
+      <a href="{% url 'reserva_edit' r.pk %}">Editar</a>
+    </li>
+  {% endfor %}
+</ul>

@@ -1,5 +1,15 @@
 from django import forms
-from .models import Empleado, Coordinador
+from .models import Reserva, Empleado, Coordinador
+
+class ReservaForm(forms.ModelForm):
+    fecha_servicio = forms.DateTimeField(
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        input_formats=['%Y-%m-%dT%H:%M']
+    )
+
+    class Meta:
+        model = Reserva
+        fields = ['fecha_servicio', 'cliente', 'servicio', 'empleado', 'coordinador']
 
 class EmpleadoForm(forms.ModelForm):
     class Meta:
