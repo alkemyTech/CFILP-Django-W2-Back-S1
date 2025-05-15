@@ -36,11 +36,11 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
   
     # Servicio
-    #path('servicio/', ServicioListView.as_view(), name='servicio_list'),
-    #path('servicio/nuevo/', ServicioCreateView.as_view(), name='servicio_create'),
-    #path('servicio/<int:pk>/editar/', ServicioUpdateView.as_view(), name='servicio_edit'),
-    #path('servicio/<int:pk>/desactivar/', ServicioDeactivateView.as_view(), name='servicio_desactivar'),
-    #path('servicio/<int:pk>/restaurar/', ServicioRestoreView.as_view(), name='servicio_restaurar'),
+    path('servicio/', ServicioListView.as_view(), name='servicio_list'),
+    path('servicio/nuevo/', ServicioCreateView.as_view(), name='servicio_create'),
+    path('servicio/<int:pk>/editar/', ServicioUpdateView.as_view(), name='servicio_edit'),
+    path('servicio/<int:pk>/desactivar/', ServicioDeactivateView.as_view(), name='servicio_desactivar'),
+    path('servicio/<int:pk>/restaurar/', ServicioRestoreView.as_view(), name='servicio_restaurar'),
     
     # Reserva
     
@@ -59,12 +59,13 @@ urlpatterns = [
     #path('empleados/inactivos/', EmpleadoInactivosListView.as_view(), name='empleado_inactivos'),
     
     #cliente
-    #path('clientes/list', ClienteListView.as_view(), name="cliente-list"),
-    #path('clientes/create', ClienteCreateView.as_view(), name="cliente-create"),
-    #path('clientes/update/<int:pk>', ClienteUpdateView.as_view(), name="cliente-update"),
-    #path('clientes/activo/<int:pk>', ClienteActivoView.as_view(), name="cliente-activo"),
+    path('cliente/', ClienteListView.as_view(), name="cliente_list"),
+    path('cliente/create', ClienteCreateView.as_view(), name="cliente_create"),
+    path('cliente/<int:pk>/update/', ClienteUpdateView.as_view(), name="cliente_update"),
+    path('cliente/<int:pk>/activo/', ClienteActivoView.as_view(), name="cliente_activo"),
   
     #coordinador
+
     path('coordinadores/', CoordinadorListView.as_view(), name='coordinador_list'),
     path('coordinadores/nuevo/', CoordinadorCreateView.as_view(), name='coordinador_create'),
     path('coordinadores/<int:pk>/editar/', CoordinadorUpdateView.as_view(), name='coordinador_edit'),

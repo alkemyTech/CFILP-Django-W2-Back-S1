@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Lista de clientes</h1>
+<table class="table table-bordered table-dark">
+    <tr>    
+        <th scope="col">Nombre</th>
+        <th scope="col">apellido</th>
+        <th scope="col">accion</th>
+    </tr>
+    <tbody>
+
+        {% for cliente in object_list %}
+        <tr>
+            <td>
+                {{ cliente.nombre }}
+            </td>
+            <td>
+                {{ cliente.apellido }}
+            </td>
+            <td>
+                <a href="http://127.0.0.1:8000/cliente/{{ cliente.id }}/update/" class="btn btn-secondary">Editar</a>
+                <!-- {% if cliente.activo %}
+                <a href="http://127.0.0.1:8000/cliente/{{ cliente.id }}/activo/" class="btn btn-secondary">eliminar</a>
+                {% else %}
+                <a href="http://127.0.0.1:8000/cliente/{{ cliente.id }}/activo/" class="btn btn-secondary">activar</a>
+                {% endif %} -->
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'cliente_create' %}" class="btn btn-secondary">Agregar Cliente</a>
+{% endblock %}

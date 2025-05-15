@@ -14,7 +14,8 @@ class ClienteListApiView(ListAPIView):
 
 #endregion
 
-#---- COORDINADOR ----
+#region ---- COORDINADOR ----
+
 class CoordinadorListAPIView(generics.ListAPIView):
     queryset = Coordinador.objects.filter(activo=True)
     serializer_class = CoordinadorSerializer
@@ -22,8 +23,10 @@ class CoordinadorListAPIView(generics.ListAPIView):
 class CoordinadorDetailAPIView(generics.RetrieveAPIView):
    queryset = Coordinador.objects.filter(activo=True)
    serializer_class = CoordinadorSerializer
+# endregion
   
-# region ----- Servicios
+# region ---- Servicios ----
+
 class ServicioListApiView(ListAPIView):
     serializer_class = ServicioSerializer
     
@@ -31,7 +34,7 @@ class ServicioListApiView(ListAPIView):
         return Servicio.objects.filter(activo=True) 
 # endregion
 
-# ---- Empleados
+# region ---- Empleados ----
 class EmpleadosListAPIView(ListAPIView):
     serializer_class = EmpleadosSerializer
     

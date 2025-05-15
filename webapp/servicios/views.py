@@ -10,25 +10,32 @@ class HomeView(TemplateView):
     
     
 #####   QUITAR O COMENTAR PARA PROBAR EL HOME ######    
-# Servicio
+
+#region --------- SERVICIOS --------- 
+
+# READ
 class ServicioListView(ListView):
     model = Servicio
     template_name = 'servicio/servicio_list.html'
+
     def get_queryset(self):
         return Servicio.objects.filter(activo=True)
 
+# CREATE
 class ServicioCreateView(CreateView):
     model =Servicio
     fields = '__all__'
     template_name = 'servicio/servicio_form.html' 
     success_url = reverse_lazy('servicio_list')
 
+#UPDATE
 class ServicioUpdateView(UpdateView):
     model =Servicio
     fields = '__all__'
     template_name = 'servicio/servicio_form.html' 
     success_url = reverse_lazy('servicio_list')
 
+#DELETE
 class ServicioDeactivateView(View):
     def post(self, request, pk):
         servicio = get_object_or_404(Servicio, pk=pk) 
@@ -41,9 +48,11 @@ class ServicioRestoreView(View):
         servicio = get_object_or_404(Servicio, pk=pk)
         servicio.activo = True
         servicio.save()
-        return redirect('servicio_inactivos')
-# ---------
-# Reserva 
+        return redirect('servicio_list')
+#endregion
+
+#region --------- RESERVA ---------
+
 class ReservaListView(ListView):
     model = Servicio
     template_name = 'reserva/reserva_list.html'
@@ -67,7 +76,10 @@ class ReservaDeleteView(DeleteView):
     fields = '__all__'
     template_name = 'reserva/reserva_form.html'
     success_url = reverse_lazy('reserva_list')
-# --------
+#endregion
+
+#region --------- EMPlEADOS ---------
+
 #Listar de empleados
 class EmpleadoListView(ListView):
     model = Empleado
@@ -114,30 +126,31 @@ template_name = 'empleados/empleado_inactivos.html'
 def get_queryset(self):
 return Empleado.objects.filter(activo=False)
 '''
+#endregion
+
+#region --------- CLIENTES ---------
 
 # READ clientes
 class ClienteListView(ListView):
     model = Cliente
-    template_name = 'servicios/cliente-list.html'
-    query_set = Cliente.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+    template_name = 'cliente/cliente_list.html'
+    
+    def get_queryset(self):
+        return Cliente.objects.filter(activo=True)
 
 # CREATE clientes
 class ClienteCreateView(CreateView):
     model = Cliente
-    template_name = 'servicios/cliente-create.html'
+    template_name = 'cliente/cliente_form.html'
     fields = ['nombre', 'apellido', 'activo']
-    success_url = reverse_lazy('cliente-list')
+    success_url = reverse_lazy('cliente_list')
 
 # UPDATE clientes
 class ClienteUpdateView(UpdateView):
     model = Cliente
     fields = ['nombre', 'apellido', 'activo']
-    template_name = 'servicios/cliente-update.html'
-    success_url = reverse_lazy('cliente-list')
+    template_name = 'cliente/cliente_form.html'
+    success_url = reverse_lazy('cliente_list')
 
 # DELETE clientes
 class ClienteActivoView(View):
@@ -147,7 +160,10 @@ class ClienteActivoView(View):
             cliente.activo = False
         else: cliente.activo = True
         cliente.save()
-        return redirect('cliente-list')
+        return redirect('cliente_list')
+#endregion
+
+#region --------- COORDINADORES ---------
 
 # Listado de coordinadores activos
 class CoordinadorListView(ListView):
@@ -194,4 +210,4 @@ class CoordinadorInactivosListView(ListView):
 
 def get_queryset(self):
     return Coordinador.objects.filter(activo=False)
-
+#endregion
