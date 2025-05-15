@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if form.instance.pk %}
+        <h1>Editar Servicio</h1>
+    {% else %}
+        <h1>Crear Servicio</h1>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="{% url 'servicio_list' %}" class="btn btn-secondary">Volver a la lista</a>
+{% endblock %}
