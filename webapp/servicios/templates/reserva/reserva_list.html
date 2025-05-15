@@ -4,7 +4,8 @@
   {% for r in object_list %}
     <li>
       {{ r.servicio.nombre }} reservado por {{ r.cliente.nombre }} para {{ r.fecha_servicio }}
-    </li>
+      |
       <a href="{% url 'reserva_edit' r.pk %}">Editar</a>
+    </li>
   {% endfor %}
 </ul>

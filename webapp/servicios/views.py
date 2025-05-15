@@ -47,7 +47,7 @@ class ReservaListView(ListView):
     model = Reserva
     template_name = 'reserva/reserva_list.html'
     def get_queryset(self):
-        return Servicio.objects.filter(activo=True)
+        return Reserva.objects.all()
 
 class ReservaCreateView(CreateView):
     model = Reserva
