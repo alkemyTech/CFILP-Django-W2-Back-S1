@@ -26,7 +26,7 @@ from .views import (                         #QUITAR O COMENTAR PARA PROBAR EL H
     CoordinadorDeactivateView,
     CoordinadorRestoreView,
     CoordinadorInactivosListView,
-    HomeView 
+    HomeView, 
     )
 
 
@@ -50,11 +50,11 @@ urlpatterns = [
     #path('reserva/<int:pk>/eliminar/', ReservaDeleteView.as_view(), name='reserva_delete'),
 
     #empleados
-    #path('empleados/', EmpleadoListView.as_view(), name='empleado_list'),
-    #path('empleados/nuevo/', EmpleadoCreateView.as_view(), name='empleado_create'),
-    #path('empleados/<int:pk>/editar/', EmpleadoUpdateView.as_view(), name='empleado_edit'),
-    #path('empleados/<int:pk>/desactivar/', EmpleadoDeactivateView.as_view(), name='empleado_desactivar'),
-    #path('empleados/<int:pk>/restaurar/', EmpleadoRestoreView.as_view(), name='empleado_restaurar'),
+    path('empleados/', EmpleadoListView.as_view(), name='empleado_list'),
+    path('empleados/nuevo/', EmpleadoCreateView.as_view(), name='empleado_create'),
+    path('empleados/<int:pk>/editar/', EmpleadoUpdateView.as_view(), name='empleado_edit'),
+    path('empleados/<int:pk>/desactivar/', EmpleadoDeactivateView.as_view(), name='empleado_desactivar'),
+    path('empleados/<int:pk>/restaurar/', EmpleadoRestoreView.as_view(), name='empleado_restaurar'),
     #Opcional
     #path('empleados/inactivos/', EmpleadoInactivosListView.as_view(), name='empleado_inactivos'),
     
@@ -65,11 +65,12 @@ urlpatterns = [
     path('cliente/<int:pk>/activo/', ClienteActivoView.as_view(), name="cliente_activo"),
   
     #coordinador
-    #path('coordinadores/', CoordinadorListView.as_view(), name='coordinador_list'),
-    #path('coordinadores/nuevo/', CoordinadorCreateView.as_view(), name='coordinador_create'),
-    #path('coordinadores/<int:pk>/editar/', CoordinadorUpdateView.as_view(), name='coordinador_edit'),
-    #path('coordinadores/<int:pk>/desactivar/', CoordinadorDeactivateView.as_view(), name='coordinador_desactivar'),
-    #path('coordinadores/<int:pk>/restaurar/', CoordinadorRestoreView.as_view(), name='coordinador_restaurar'),
-    #path('coordinadores/inactivos/', CoordinadorInactivosListView.as_view(), name='coordinador_inactivos'),    
+
+    path('coordinadores/', CoordinadorListView.as_view(), name='coordinador_list'),
+    path('coordinadores/nuevo/', CoordinadorCreateView.as_view(), name='coordinador_create'),
+    path('coordinadores/<int:pk>/editar/', CoordinadorUpdateView.as_view(), name='coordinador_edit'),
+    path('coordinadores/<int:pk>/desactivar/', CoordinadorDeactivateView.as_view(), name='coordinador_desactivar'),
+    path('coordinadores/<int:pk>/restaurar/', CoordinadorRestoreView.as_view(), name='coordinador_restaurar'),
+    path('coordinadores/inactivos/', CoordinadorInactivosListView.as_view(), name='coordinador_inactivos'),    
     
 ]

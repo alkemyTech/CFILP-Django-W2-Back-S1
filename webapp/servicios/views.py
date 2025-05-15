@@ -2,10 +2,12 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View, TemplateView
 from django.urls import reverse_lazy
 from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador)
+from .forms import EmpleadoForm, CoordinadorForm
 
 # View
 class HomeView(TemplateView):   
     template_name = 'home.html'
+    
     
 #####   QUITAR O COMENTAR PARA PROBAR EL HOME ######    
 
@@ -82,6 +84,7 @@ class ReservaDeleteView(DeleteView):
 class EmpleadoListView(ListView):
     model = Empleado
     template_name = 'empleados/empleado_list.html'
+    context_object_name = 'empleados'
 
     def get_queryset(self):
         return Empleado.objects.filter(activo=True) #muestro solos los que esten activos
@@ -89,14 +92,14 @@ class EmpleadoListView(ListView):
 #Crear empleados
 class EmpleadoCreateView(CreateView):
     model = Empleado
-    fields = ['nombre', 'apellido', 'numero_legajo', 'activo']
     template_name = 'empleados/empleado_form.html' # Formulario
     success_url = reverse_lazy('empleado_list')
+    form_class = EmpleadoForm
 
 #Editar empleados
 class EmpleadoUpdateView(UpdateView):
     model = Empleado
-    fields = ['nombre', 'apellido', 'numero_legajo', 'activo']
+    form_class = EmpleadoForm
     template_name = 'empleados/empleado_form.html'
     success_url = reverse_lazy('empleado_list')
 
@@ -165,20 +168,25 @@ class ClienteActivoView(View):
 # Listado de coordinadores activos
 class CoordinadorListView(ListView):
     model = Coordinador
+    template_name = 'coordinadores/coordinador_list.html'
+    context_object_name = 'coordinadores'
 
-def get_queryset(self):
-    return Coordinador.objects.filter(activo=True)
+
+    def get_queryset(self):
+        return Coordinador.objects.filter(activo=True)
 
 # Crear un nuevo coordinador
 class CoordinadorCreateView(CreateView):
     model = Coordinador
-    fields = ['nombre', 'apellido', 'numero_documento', 'activo']
     success_url = reverse_lazy('coordinador_list')
+    form_class = CoordinadorForm
+    template_name = 'coordinadores/coordinador_form.html'
 
 # Editar un coordinador existente
 class CoordinadorUpdateView(UpdateView):
     model = Coordinador
-    fields = ['nombre', 'apellido', 'numero_documento', 'activo']
+    form_class = CoordinadorForm
+    template_name = 'coordinadores/coordinador_form.html'
     success_url = reverse_lazy('coordinador_list')
 
 # Baja lógica (desactivar)
