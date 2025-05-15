@@ -1,10 +1,15 @@
-<div class="container">
-  <h1>Reserva</h1> 
+{% extends 'base.html' %}
+
+{% block content %}
   <h2>Crear Reserva</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-  </form>
-  <a href="{% url 'reserva_list' %}">Volver</a>
-</div>
+      <form method="post" class="card p-4 shadow-sm">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="d-flex gap-2 mt-3">
+          <button type="submit" class="btn btn-success">Guardar</button>
+          <a href="{% url 'reserva_list' %}" class="btn btn-secondary">Volver</a>
+        </div>
+      </form>   
+
+{% endblock %}

@@ -1,9 +1,15 @@
-<h2>Editar Reserva</h2>
+{% extends 'base.html' %}
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Guardar Cambios</button>
-</form>
+{% block content %}
+  <h2>Editar Reserva</h2>
 
-<a href="{% url 'reserva_list' %}">Volver al listado</a>
+  <form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="d-flex justify-content-end gap-2 mt-3">
+      <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+      <a href="{% url 'reserva_list' %}" class="btn btn-secondary">Volver</a>
+    </div>
+  </form>
+{% endblock %}
