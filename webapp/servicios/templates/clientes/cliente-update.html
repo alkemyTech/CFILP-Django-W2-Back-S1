@@ -1,7 +1,0 @@
-<h1>Editar Cliente</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar Cambios</button>
-    </form>
-    <a href="{% url 'cliente-list' %}">Volver a la lista</a>

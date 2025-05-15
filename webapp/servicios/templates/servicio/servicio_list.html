@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Lista de servicios</h1>
+<table class="table table-bordered table-dark">
+    <tr>    
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Accion</th>
+    </tr>
+    <tbody>
+        {% for servicio in object_list %}
+            <tr>
+                <td>
+                    {{ servicio.nombre }}
+                </td>
+                <td>
+                    {{ servicio.descripcion }}
+                </td>
+                <td>
+                    {{ servicio.precio }}
+                </td>
+                <td>
+                    <a href="http://127.0.0.1:8000/servicio/{{ servicio.id }}/editar/" class="btn btn-secondary">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'servicio_create' %}" class="btn btn-secondary">Agregar Servicio</a>
+{% endblock %}
