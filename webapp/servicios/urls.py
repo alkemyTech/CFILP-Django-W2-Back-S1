@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import HomeView
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import (                         #QUITAR O COMENTAR PARA PROBAR EL HOME
     ServicioListView,
     ServicioCreateView,
@@ -31,7 +32,8 @@ from .views import (                         #QUITAR O COMENTAR PARA PROBAR EL H
 
 
 urlpatterns = [
-    
+
+
     # Home
     path('', HomeView.as_view(), name='home'),
   
@@ -74,4 +76,4 @@ urlpatterns = [
     path('coordinadores/<int:pk>/restaurar/', CoordinadorRestoreView.as_view(), name='coordinador_restaurar'),
     path('coordinadores/inactivos/', CoordinadorInactivosListView.as_view(), name='coordinador_inactivos'),    
     
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

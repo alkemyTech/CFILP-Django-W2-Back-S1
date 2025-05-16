@@ -1,0 +1,70 @@
+/* === COLORES Y BOTONES PERSONALIZADOS === */
+
+.btn-oscuro {
+    background-color: #1c191a;
+    color: #f4b324;
+    border: none;
+    width: 300px;
+    height: 70px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.btn-oscuro:hover {
+    background-color: #f4b324;
+    color: #1c191a;
+}
+
+
+/* === HEADER PERSONALIZADO === */
+
+.header-bonk {
+    background-color:#1c191a;
+    height: 280px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 280px;
+}
+
+.btn-inicio {
+    border: 1px solid #f4b324;
+    color: white;
+    background-color: transparent;
+    font-size: 1rem;
+    padding: 0.7rem 1.7rem;
+    align-self: flex-end;
+    margin-bottom: -13rem;
+}
+
+.btn-inicio:hover {
+    background-color: #f4b324;
+    color: #1c191a;
+}
+
+
+/* === CENTRADO DEL CONTENIDO EN HOME === */
+
+.home-contenedor {
+    height: calc(80vh - 140px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-bloque {
+    text-align: center;
+}
+
+.titulo-home {
+    color: #1c191a;
+    margin-bottom: 3rem;
+}
+
