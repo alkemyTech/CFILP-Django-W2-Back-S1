@@ -35,11 +35,11 @@
 }
 
 .btn-inicio {
-    border: 3px solid #f4b324;
+    border: 1px solid #f4b324;
     color: white;
     background-color: transparent;
     font-size: 1rem;
-    padding: 0.5rem 1.5rem;
+    padding: 0.7rem 1.7rem;
     align-self: flex-end;
     margin-bottom: -13rem;
 }
