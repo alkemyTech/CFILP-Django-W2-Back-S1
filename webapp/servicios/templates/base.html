@@ -19,11 +19,14 @@
     <!-- Encabezado con logo y botón Inicio -->
     <header class="header-bonk">
         <div class="header-logo">
-            <img src="{% static 'img/logo.png' %}" alt="Logo Bonk" class="logo">
+            <!-- <img src="{% static 'img/logo.png' %}" alt="Logo Bonk" class="logo"> -->
+            <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="Logo Bonk" class="logo"></a>
         </div>
+        <!-- 
         <div class="header-inicio">
             <a href="{% url 'home' %}" class="btn btn-inicio">Inicio</a>
         </div>
+        -->
     </header>    
 
     <!-- Mensajes del sistema -->
