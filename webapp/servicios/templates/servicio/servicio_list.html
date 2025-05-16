@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Servicios</h2>
-    <a href="{% url 'servicio_create' %}" class="btn btn-success mb-3">Agregar Servicio</a>
+    <a href="{% url 'servicio_create' %}" class="btn btn-success mb-3" style="background-color:#f4b324; color:#1c191a" >Agregar servicio</a>
     <table class="table table-bordered table-striped">
     <thead class="table-dark">
         <tr >    
@@ -26,7 +26,7 @@
                     {{ servicio.precio }}
                 </td>
                 <td>
-                    <a href="{% url 'servicio_edit' servicio.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'servicio_edit' servicio.pk %}" class="btn btn-sm btn-primary" style="background-color:#f4b324; color:#1c191a">Editar</a>
                 </td>
             </tr>
             {% empty %}

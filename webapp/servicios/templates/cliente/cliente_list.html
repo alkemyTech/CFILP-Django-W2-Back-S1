@@ -3,12 +3,12 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Clientes</h2>
-    <a href="{% url 'cliente_create' %}" class="btn btn-success mb-3">Agregar Cliente</a>
+    <a href="{% url 'cliente_create' %}" class="btn btn-success mb-3" style="background-color:#f4b324; color:#1c191a">Agregar cliente</a>
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>    
-                <th scope="col">Nombre</th>
-            <th scope="col">apellido</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
             <th scope="col">accion</th>
         </tr>
     </thead>
@@ -23,7 +23,7 @@
                 {{ cliente.apellido }}
             </td>
             <td>
-                <a href="{% url 'cliente_update' cliente.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                <a href="{% url 'cliente_update' cliente.pk %}" class="btn btn-sm btn-primary" style="background-color:#f4b324; color:#1c191a" >Editar</a>
                 <!-- {% if cliente.activo %}
                 <a href="http://127.0.0.1:8000/cliente/{{ cliente.id }}/activo/" class="btn btn-secondary">eliminar</a>
                 {% else %}

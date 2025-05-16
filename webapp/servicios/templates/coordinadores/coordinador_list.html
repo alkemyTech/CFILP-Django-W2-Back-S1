@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container mt-5">
     <h2>Coordinadores</h2>
-    <a href="{% url 'coordinador_create' %}" class="btn btn-success mb-3">Agregar Coordinador</a>
+    <a href="{% url 'coordinador_create' %}" class="btn btn-success mb-3" style="background-color:#f4b324; color:#1c191a">Agregar coordinador</a>
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
@@ -15,13 +15,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for coordinador in coordinadores %}
+            v{% for coordinador in coordinadores %}
             <tr>
                 <td>{{ coordinador.nombre }}</td>
                 <td>{{ coordinador.apellido }}</td>
                 <td>{{ coordinador.numero_documento }}</td>
                 <td>
-                    <a href="{% url 'coordinador_edit' coordinador.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{% url 'coordinador_edit' coordinador.pk %}" class="btn btn-sm btn-primary" style="background-color:#f4b324; color:#1c191a">Editar</a>
                 </td>
             </tr>
             {% empty %}
