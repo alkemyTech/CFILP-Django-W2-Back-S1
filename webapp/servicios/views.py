@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View, TemplateView
 from django.urls import reverse_lazy
 from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador)
-from .forms import EmpleadoForm, CoordinadorForm, ReservaForm
+from .forms import EmpleadoForm, CoordinadorForm, ReservaForm, ServicioForm, ClienteForm
 
 
 # View
@@ -25,14 +25,14 @@ class ServicioListView(ListView):
 # CREATE
 class ServicioCreateView(CreateView):
     model =Servicio
-    fields = '__all__'
+    form_class = ServicioForm
     template_name = 'servicio/servicio_form.html' 
     success_url = reverse_lazy('servicio_list')
 
 #UPDATE
 class ServicioUpdateView(UpdateView):
     model =Servicio
-    fields = '__all__'
+    form_class = ServicioForm
     template_name = 'servicio/servicio_form.html' 
     success_url = reverse_lazy('servicio_list')
 
@@ -69,7 +69,7 @@ class ReservaCreateView(CreateView):
 class ReservaUpdateView(UpdateView):
     model = Reserva
     form_class = ReservaForm 
-    template_name = 'reserva/reserva_update.html' 
+    template_name = 'reserva/reserva_form.html' 
     success_url = reverse_lazy('reserva_list')
 
 class ReservaDeleteView(DeleteView):
@@ -143,13 +143,13 @@ class ClienteListView(ListView):
 class ClienteCreateView(CreateView):
     model = Cliente
     template_name = 'cliente/cliente_form.html'
-    fields = ['nombre', 'apellido', 'activo']
+    form_class = ClienteForm
     success_url = reverse_lazy('cliente_list')
 
 # UPDATE clientes
 class ClienteUpdateView(UpdateView):
     model = Cliente
-    fields = ['nombre', 'apellido', 'activo']
+    form_class = ClienteForm
     template_name = 'cliente/cliente_form.html'
     success_url = reverse_lazy('cliente_list')
 

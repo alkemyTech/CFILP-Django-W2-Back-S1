@@ -1,15 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container mt-5"> 
   <h2>Reservas</h2>
-  <a href="{% url 'reserva_create' %}" class="btn btn-primary mb-3">Nueva Reserva</a>
-
-  <ul class="list-group">
-    {% for r in object_list %}
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        {{ r.servicio.nombre }} reservado por {{ r.cliente.nombre }} para {{ r.fecha_servicio }}
-        <a href="{% url 'reserva_edit' r.pk %}" class="btn btn-sm btn-outline-secondary">Editar</a>
-      </li>
-    {% endfor %}
-  </ul>
+  <a href="{% url 'reserva_create' %}" class="btn btn-success mb-3">Nueva Reserva</a>
+  
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Fecha</th>
+        <th>Servicio</th>
+        <th>Cliente</th>
+        <th>Empleado</th>
+        <th>Coordinador</th>
+        <th>Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in object_list %}
+      <tr>
+        <td>{{ r.fecha_servicio }}</td>
+        <td>{{ r.servicio.nombre }}</td>
+            <td>{{ r.cliente.nombre }}</td>
+            <td>{{ r.empleado.nombre }}</td>
+            <td>{{ r.coordinador.nombre }}</td>
+            <td>
+              <a href="{% url 'reserva_edit' r.pk %}" class="btn btn-sm btn-primary">Editar</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="2">No hay coordinadores.</td></tr>
+            {% endfor %}
+          </tbody>
+    </table>
+</div>
 {% endblock %}
