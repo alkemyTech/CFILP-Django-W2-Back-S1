@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import HomeView
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import (                         #QUITAR O COMENTAR PARA PROBAR EL HOME
     ServicioListView,
     ServicioCreateView,
@@ -26,12 +27,13 @@ from .views import (                         #QUITAR O COMENTAR PARA PROBAR EL H
     CoordinadorDeactivateView,
     CoordinadorRestoreView,
     CoordinadorInactivosListView,
-    HomeView 
+    HomeView, 
     )
 
 
 urlpatterns = [
-    
+
+
     # Home
     path('', HomeView.as_view(), name='home'),
   
@@ -44,32 +46,34 @@ urlpatterns = [
     
     # Reserva
     
-    #path('reserva/', ReservaListView.as_view(), name='reserva_list'),
-    #path('reserva/nuevo/', ReservaCreateView.as_view(), name='reserva_create'),
-    #path('reserva/<int:pk>/editar/', ReservaUpdateView.as_view(), name='reserva_edit'),
-    #path('reserva/<int:pk>/eliminar/', ReservaDeleteView.as_view(), name='reserva_delete'),
+    path('reserva/', ReservaListView.as_view(), name='reserva_list'),
+    path('reserva/nuevo/', ReservaCreateView.as_view(), name='reserva_create'),
+    path('reserva/<int:pk>/editar/', ReservaUpdateView.as_view(), name='reserva_edit'),
+    path('reserva/<int:pk>/eliminar/', ReservaDeleteView.as_view(), name='reserva_delete'),
 
     #empleados
-    #path('empleados/', EmpleadoListView.as_view(), name='empleado_list'),
-    #path('empleados/nuevo/', EmpleadoCreateView.as_view(), name='empleado_create'),
-    #path('empleados/<int:pk>/editar/', EmpleadoUpdateView.as_view(), name='empleado_edit'),
-    #path('empleados/<int:pk>/desactivar/', EmpleadoDeactivateView.as_view(), name='empleado_desactivar'),
-    #path('empleados/<int:pk>/restaurar/', EmpleadoRestoreView.as_view(), name='empleado_restaurar'),
+    path('empleados/', EmpleadoListView.as_view(), name='empleado_list'),
+    path('empleados/nuevo/', EmpleadoCreateView.as_view(), name='empleado_create'),
+    path('empleados/<int:pk>/editar/', EmpleadoUpdateView.as_view(), name='empleado_edit'),
+    path('empleados/<int:pk>/desactivar/', EmpleadoDeactivateView.as_view(), name='empleado_desactivar'),
+    path('empleados/<int:pk>/restaurar/', EmpleadoRestoreView.as_view(), name='empleado_restaurar'),
     #Opcional
     #path('empleados/inactivos/', EmpleadoInactivosListView.as_view(), name='empleado_inactivos'),
     
     #cliente
+  
     path('cliente/', ClienteListView.as_view(), name="cliente_list"),
     path('cliente/create', ClienteCreateView.as_view(), name="cliente_create"),
     path('cliente/<int:pk>/update/', ClienteUpdateView.as_view(), name="cliente_update"),
     path('cliente/<int:pk>/activo/', ClienteActivoView.as_view(), name="cliente_activo"),
   
     #coordinador
-    #path('coordinadores/', CoordinadorListView.as_view(), name='coordinador_list'),
-    #path('coordinadores/nuevo/', CoordinadorCreateView.as_view(), name='coordinador_create'),
-    #path('coordinadores/<int:pk>/editar/', CoordinadorUpdateView.as_view(), name='coordinador_edit'),
-    #path('coordinadores/<int:pk>/desactivar/', CoordinadorDeactivateView.as_view(), name='coordinador_desactivar'),
-    #path('coordinadores/<int:pk>/restaurar/', CoordinadorRestoreView.as_view(), name='coordinador_restaurar'),
-    #path('coordinadores/inactivos/', CoordinadorInactivosListView.as_view(), name='coordinador_inactivos'),    
+
+    path('coordinadores/', CoordinadorListView.as_view(), name='coordinador_list'),
+    path('coordinadores/nuevo/', CoordinadorCreateView.as_view(), name='coordinador_create'),
+    path('coordinadores/<int:pk>/editar/', CoordinadorUpdateView.as_view(), name='coordinador_edit'),
+    path('coordinadores/<int:pk>/desactivar/', CoordinadorDeactivateView.as_view(), name='coordinador_desactivar'),
+    path('coordinadores/<int:pk>/restaurar/', CoordinadorRestoreView.as_view(), name='coordinador_restaurar'),
+    path('coordinadores/inactivos/', CoordinadorInactivosListView.as_view(), name='coordinador_inactivos'),    
     
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
-
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
-<h1>Bienvenido al Sistema de Reservas</h1>
-<p>Usá la barra de navegación para ingresar a cada módulo.</p>
+<div class="home-contenedor">
+  <div class="home-bloque">
+    <h1 class="titulo-home">Sistema de administración interno</h1>
+
+    <div class="d-flex flex-column gap-3 align-items-center">
+      <a href="{% url 'servicio_list' %}" class="btn btn-oscuro">Servicios</a>
+      <a href="{% url 'cliente_list' %}" class="btn btn-oscuro">Clientes</a>
+      <a href="{% url 'empleado_list' %}" class="btn btn-oscuro">Empleados</a>
+      <a href="{% url 'coordinador_list' %}" class="btn btn-oscuro">Coordinadores</a>
+      <a href="{% url 'reserva_list' %}" class="btn btn-oscuro">Reservas</a>
+    </div>
+  </div>
+</div>
 {% endblock %}

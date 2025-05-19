@@ -5,9 +5,9 @@
     <div class="card">
         <div class="card-header">
             {% if form.instance.pk %}
-            <h3>Editar Servicio</h3>
+            <h3>Editar Coordinador</h3>
             {% else %}
-            <h3>Crear Servicio</h3>
+            <h3>Crear Coordinador</h3>
             {% endif %}
         </div>
         <div class="card-body">
@@ -24,8 +24,8 @@
                     </div>
                 {% endfor %}
 
-                <button type="submit" class="btn btn-primary" style="background-color:#f4b324; color:#1c191a" >Guardar</button>
-                <a href="{% url 'servicio_list' %}" class="btn btn-secondary" >Cancelar</a>
+                <button type="submit" class="btn btn-primary" style="background-color:#f4b324; color:#1c191a">Guardar</button>
+                <a href="{% url 'coordinador_list' %}" class="btn btn-secondary" >Cancelar</a>
             </form>
         </div>
     </div>
