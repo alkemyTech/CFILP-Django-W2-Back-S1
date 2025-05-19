@@ -11,14 +11,15 @@
 
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
 
     {% block extra_css %}{% endblock %}
 </head>
 <body>
 
     <!-- Encabezado con logo y botón Inicio -->
-    <header class="header-bonk">
-        <div class="header-logo">
+    <header class="header-bonk justify-content-center">
+        <div class="header-logo ">
             <!-- <img src="{% static 'img/logo.png' %}" alt="Logo Bonk" class="logo"> -->
             <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="Logo Bonk" class="logo"></a>
         </div>

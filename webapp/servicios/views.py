@@ -9,6 +9,9 @@ from .forms import EmpleadoForm, CoordinadorForm, ReservaForm, ServicioForm, Cli
 class HomeView(TemplateView):   
     template_name = 'home.html'
     
+class IndexView(TemplateView):
+    template_name = 'index.html'
+    
     
 #####   QUITAR O COMENTAR PARA PROBAR EL HOME ######    
 

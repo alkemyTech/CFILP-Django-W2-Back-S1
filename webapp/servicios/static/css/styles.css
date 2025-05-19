@@ -1,0 +1,126 @@
+body {
+  background-color: #5a5555;
+  color: white;
+}
+h2 {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+h2::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 4px;
+  background: #ffcc00;
+  margin: 0.5rem auto 0 auto;
+  border-radius: 2px;
+}
+.navbar {
+  background-color: #3a3737;
+}
+.navbar .nav-link {
+  color: #ffcc00;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+.navbar .nav-link:hover {
+  color: #ffffff;
+}
+.hero {
+  background-color: #1c191a;
+  padding: 4rem 0;
+  text-align: center;
+}
+.hero img {
+  max-height: 300px;
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.hero img:hover {
+  transform: rotate(-3deg) scale(1.05);
+}
+.servicio-card img {
+  background-color: #1a1818;
+  padding: 2rem;
+  height: 300px;
+}
+.servicio-card h4 {
+  color: #ffcc00;
+}
+.servicio-card .card {
+  background-color: #eaeaea;
+  color: #1c191a;
+}
+
+.servicio-card .card-img-top {
+  transition: transform 0.3s ease;
+}
+
+.servicio-card:hover .card-img-top {
+  transform: scale(1.08);
+
+}
+
+.servicio-card {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.7s forwards;
+}
+.servicio-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.servicio-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.mensaje {
+  background-color: #1c191a;
+  padding: 2rem;
+  text-align: center;
+}
+.mensaje h3 {
+  color: white;
+  font-weight: bold;
+}
+
+.contacto-texto {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #1c191a;
+}
+.contacto-texto h3 {
+  font-size: 40px;
+  font-weight: bold;
+}
+.contacto{
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer {
+  background-color: #1c191a;
+  color: white;
+  padding: 2rem 0 1rem 0;
+  text-align: center;
+}
+.footer-icons i {
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 0 10px;
+}
+@media (max-width: 768px) {
+  .hero img {
+    max-height: 80px;
+  }
+  .navbar .nav-link,
+  .navbar .btn {
+    font-size: 0.9rem;
+  }
+}
+
