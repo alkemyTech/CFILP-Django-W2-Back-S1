@@ -14,9 +14,10 @@
       <a href="{% url 'empleado_list' %}" class="btn btn-oscuro">Empleados</a>
       <a href="{% url 'coordinador_list' %}" class="btn btn-oscuro">Coordinadores</a>
       <a href="{% url 'reserva_list' %}" class="btn btn-oscuro">Reservas</a>
+      <a href="{% url 'estadisticas' %}" class="btn btn-oscuro">Estadisticas</a> 
       <form method="post" action="{% url 'logout' %}" style="display:inline;">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-oscuro">Cerrar sesión</button>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-oscuro">Cerrar sesión</button>
       </form>
     </div>
   </div>

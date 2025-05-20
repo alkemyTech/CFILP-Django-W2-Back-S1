@@ -27,8 +27,12 @@ from .views import (                         #QUITAR O COMENTAR PARA PROBAR EL H
     CoordinadorDeactivateView,
     CoordinadorRestoreView,
     CoordinadorInactivosListView,
-    HomeView, 
-
+    estadisticas_view,
+    ranking_completo_view,
+    exportar_estadisticas_excel,
+    HomeView,
+    IndexView,
+    ContactoCreateView,
     #login
     CustomLoginView,
     )
@@ -38,7 +42,19 @@ urlpatterns = [
 
 
     # Home
-    path('', HomeView.as_view(), name='home'),
+
+    
+    path('estadisticas/', estadisticas_view, name='estadisticas'),
+    path('estadisticas/completo/', ranking_completo_view, name='ranking_completo'),
+    
+    path('estadisticas/exportar/', exportar_estadisticas_excel, name='exportar_excel'),
+
+    path('home/', HomeView.as_view(), name='home'),
+    path('', ContactoCreateView.as_view(), name='index'),
+    
+    # Mensaje de contacto
+    path('', ContactoCreateView.as_view(), name='contacto'),  
+
   
     # Servicio
     path('servicio/', ServicioListView.as_view(), name='servicio_list'),

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Reserva, Empleado, Coordinador, Cliente, Servicio
+from .models import Reserva, Empleado, Coordinador, Cliente, Servicio, MensajeContacto
 #LOGIN
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -81,3 +81,10 @@ class ClienteForm(forms.ModelForm):
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'apellido': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+#ContactForm
+class MensajeContactoForm(forms.ModelForm):
+    class Meta:
+        model = MensajeContacto
+        fields = ['nombre', 'email', 'mensaje']
+    
