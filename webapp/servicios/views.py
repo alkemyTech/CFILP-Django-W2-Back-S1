@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View, TemplateView
 from django.urls import reverse_lazy
-from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador)
-from .forms import EmpleadoForm, CoordinadorForm, ReservaForm, ServicioForm, ClienteForm
+from django.contrib import messages
+from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador, MensajeContacto)
+from .forms import EmpleadoForm, CoordinadorForm, ReservaForm, ServicioForm, ClienteForm, MensajeContactoForm
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 # View
@@ -216,3 +218,14 @@ class CoordinadorInactivosListView(ListView):
 
 #endregion
 
+#region --------- CONTACTO ---------
+
+class ContactoCreateView(SuccessMessageMixin, CreateView):
+    model = MensajeContacto
+    form_class = MensajeContactoForm
+    template_name = 'index.html' 
+    success_url = reverse_lazy('contacto') 
+    success_message = '¡Tu mensaje fue enviado con éxito!' 
+    
+    
+#endregion

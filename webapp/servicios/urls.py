@@ -29,6 +29,7 @@ from .views import (                         #QUITAR O COMENTAR PARA PROBAR EL H
     CoordinadorInactivosListView,
     HomeView,
     IndexView,
+    ContactoCreateView,
     )
 
 
@@ -37,8 +38,10 @@ urlpatterns = [
 
     # Home
     path('home/', HomeView.as_view(), name='home'),
-    path('', IndexView.as_view(), name='index'),
+    path('', ContactoCreateView.as_view(), name='index'),
     
+    # Mensaje de contacto
+    path('', ContactoCreateView.as_view(), name='contacto'),  
   
     # Servicio
     path('servicio/', ServicioListView.as_view(), name='servicio_list'),

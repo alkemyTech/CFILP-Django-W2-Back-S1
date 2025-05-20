@@ -111,25 +111,60 @@
     <section id="contacto" class="container contacto py-5">
         <h2 class="mb-4 " style="color: #ffcc00;">Contacto</h2>
         <div class="d-flex justify-content-center">
-            <form class="bg-white text-dark p-4 rounded mt-4 w-100 text-start" style="max-width: 600px;">
-                <div class="contacto-texto fs-5 mt-2  mb-3">
-                    <h3>¡Escribinos!</h3>
-                    <h6>¿Tenés dudas, ideas o querés reservar? Completá el formulario y te respondemos!</h6>
+
+            <!-- Notificación tipo toast -->
+            <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+                    aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            {{ message }}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Cerrar"></button>
+                    </div>
                 </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <form method="post" action="{% url 'contacto' %}" class="bg-light p-4 rounded shadow w-100"
+                style="max-width: 600px;">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                <div class="contacto-texto fs-5 mt-2 mb-3">
+                    <h3 class="fw-bold"><i class=""></i> ¡Escribinos!</h3>
+                    <p class="text-muted">¿Tenés dudas, ideas o querés reservar? Completá el formulario y te respondemos
+                    </p>
+                </div>
+
                 <div class="mb-3">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control" placeholder="Tu nombre completo" required>
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Tu nombre completo"
+                        required>
                 </div>
+
                 <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" placeholder="ejemplo@correo.com" required>
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="ejemplo@correo.com"
+                        required>
                 </div>
+
                 <div class="mb-3">
-                    <label class="form-label">Mensaje</label>
-                    <textarea class="form-control" rows="4" placeholder="Escribí tu mensaje acá..." required></textarea>
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea name="mensaje" id="mensaje" class="form-control" rows="4"
+                        placeholder="Escribí tu mensaje acá..." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-dark w-100">Enviar</button>
+
+                <button type="submit" class="btn btn-warning w-100 fw-bold">
+                    <i></i> Enviar
+                </button>
             </form>
+
+
         </div>
     </section>
 

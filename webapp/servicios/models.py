@@ -66,3 +66,14 @@ class Reserva(models.Model):
     servicio = models.ForeignKey('servicios.Servicio', on_delete=models.CASCADE)
     empleado = models.ForeignKey('servicios.Empleado', on_delete=models.CASCADE)
     coordinador = models.ForeignKey('servicios.Coordinador', on_delete=models.CASCADE)
+
+
+#CONTACTOS
+class MensajeContacto(models.Model):
+    nombre = models.CharField(max_length=100)
+    email = models.EmailField()
+    mensaje = models.TextField(max_length=500)
+    fecha_envio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.nombre} - {self.email}"
