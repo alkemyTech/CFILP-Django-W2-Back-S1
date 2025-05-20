@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.admin import SimpleListFilter
 
-from .models import Servicio, Empleado, Cliente, Coordinador, Reserva
+from .models import Servicio, Empleado, Cliente, Coordinador, Reserva, MensajeContacto
 
 
 class FiltroEstado(SimpleListFilter):
@@ -135,3 +135,13 @@ class ReservaAdmin(admin.ModelAdmin):
     list_display = ("id", "cliente", "servicio", "fecha_servicio", "fecha_reserva", "coordinador")
     search_fields = ("cliente__nombre", "servicio__nombre")
     list_filter = ("fecha_servicio", "servicio")
+    
+@admin.register(MensajeContacto)
+class MensajeContactoAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'email','mensaje_resumen', 'fecha_envio') 
+    list_filter = ('fecha_envio',)                     
+    search_fields = ('nombre', 'email', 'mensaje')     
+    
+    def mensaje_resumen(self, obj):
+        return (obj.mensaje[:50] + '...') if len(obj.mensaje) > 50 else obj.mensaje
+    mensaje_resumen.short_description = 'Mensaje'

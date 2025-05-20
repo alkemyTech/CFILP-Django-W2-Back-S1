@@ -1,11 +1,13 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View, TemplateView
 from django.urls import reverse_lazy
-from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador)
-from .forms import EmpleadoForm, CoordinadorForm, ReservaForm, ServicioForm, ClienteForm
 from django.db.models import Count
 import openpyxl
 from django.http import HttpResponse
+from django.contrib import messages
+from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador, MensajeContacto)
+from .forms import EmpleadoForm, CoordinadorForm, ReservaForm, ServicioForm, ClienteForm, MensajeContactoForm
+from django.contrib.messages.views import SuccessMessageMixin
 
 def estadisticas_view(request):
     empleados, coordinadores, servicios, total_reservas = obtener_ranking_reservas()
@@ -75,9 +77,15 @@ def exportar_estadisticas_excel(request):
     wb.save(response)
     return response
 
+
+
+
 # View
 class HomeView(TemplateView):   
     template_name = 'home.html'
+    
+class IndexView(TemplateView):
+    template_name = 'index.html'
     
     
 #####   QUITAR O COMENTAR PARA PROBAR EL HOME ######    
@@ -284,6 +292,7 @@ class CoordinadorInactivosListView(ListView):
 #endregion
 
 
+
 def obtener_ranking_reservas():
     from .models import Reserva
     from django.db.models import Count
@@ -295,3 +304,16 @@ def obtener_ranking_reservas():
     servicios = Reserva.objects.values('servicio__nombre').annotate(total=Count('id')).order_by('-total')
 
     return empleados, coordinadores, servicios, total
+
+#region --------- CONTACTO ---------
+
+class ContactoCreateView(SuccessMessageMixin, CreateView):
+    model = MensajeContacto
+    form_class = MensajeContactoForm
+    template_name = 'index.html' 
+    success_url = reverse_lazy('contacto') 
+    success_message = '¡Tu mensaje fue enviado con éxito!' 
+    
+    
+#endregion
+
