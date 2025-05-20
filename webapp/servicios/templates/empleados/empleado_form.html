@@ -4,7 +4,11 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-header">
-            <h3>Agregar Empleado</h3>
+            {% if form.instance.pk %}
+            <h3>Editar Empleado</h3>
+            {% else %}
+            <h3>Crear Empleado</h3>
+            {% endif %}
         </div>
         <div class="card-body">
             <form method="post">
