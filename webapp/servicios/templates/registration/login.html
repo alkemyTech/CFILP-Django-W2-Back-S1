@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      {% if form.errors %}
+      <p>Su nombre de usuario y contraseña no coinciden. Inténtalo de nuevo.</p>
+      {% endif %}
+      
+      {% if next %}
+      {% if user.is_authenticated %}
+      <p>Su cuenta no tiene acceso a esta página. Para continuar,
+        inicie sesión con una cuenta que tenga acceso.</p>
+        {% else %}
+        <p>Por favor inicie sesión para ver esta página.</p>
+        {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="card-body">
+
+      <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">{{ form.username.label_tag }}</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="username">
+          </div>
+          <div class="mb-3">
+            <label for="inputPassword5" class="form-label">{{ form.password.label_tag }}</label>
+         <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" name="password">
+          </div>
+        
+          <input type="submit" value="login" class="btn btn-primary" style="background-color:#f4b324; color:#1c191a">
+          <input type="hidden" name="next" value="{{ next }}">
+      </form>
+    </div>    
+  </div>
+  
+{% endblock %}

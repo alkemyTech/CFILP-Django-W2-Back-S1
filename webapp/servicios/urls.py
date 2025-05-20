@@ -28,6 +28,9 @@ from .views import (                         #QUITAR O COMENTAR PARA PROBAR EL H
     CoordinadorRestoreView,
     CoordinadorInactivosListView,
     HomeView, 
+
+    #login
+    CustomLoginView,
     )
 
 
@@ -75,5 +78,8 @@ urlpatterns = [
     path('coordinadores/<int:pk>/desactivar/', CoordinadorDeactivateView.as_view(), name='coordinador_desactivar'),
     path('coordinadores/<int:pk>/restaurar/', CoordinadorRestoreView.as_view(), name='coordinador_restaurar'),
     path('coordinadores/inactivos/', CoordinadorInactivosListView.as_view(), name='coordinador_inactivos'),    
+
+    #LOGIN
+    path('login/', CustomLoginView.as_view(), name='login'),
     
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
