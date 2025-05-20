@@ -1,5 +1,16 @@
 from django import forms
 from .models import Reserva, Empleado, Coordinador, Cliente, Servicio, MensajeContacto
+#LOGIN
+from django.contrib.auth.forms import AuthenticationForm
+
+#LOGIN
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Usuario'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña'})
+    )
 
 class ReservaForm(forms.ModelForm):
     fecha_servicio = forms.DateTimeField(

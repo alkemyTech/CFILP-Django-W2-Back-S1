@@ -133,3 +133,8 @@ REST_FRAMEWORK = {
         #DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+# urls para redideccionar
+
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
