@@ -28,6 +28,9 @@ from .views import (                         #QUITAR O COMENTAR PARA PROBAR EL H
     CoordinadorRestoreView,
     CoordinadorInactivosListView,
     HomeView, 
+    estadisticas_view,
+    ranking_completo_view,
+    exportar_estadisticas_excel,
     )
 
 
@@ -36,6 +39,11 @@ urlpatterns = [
 
     # Home
     path('', HomeView.as_view(), name='home'),
+    
+    path('estadisticas/', estadisticas_view, name='estadisticas'),
+    path('estadisticas/completo/', ranking_completo_view, name='ranking_completo'),
+    
+    path('estadisticas/exportar/', exportar_estadisticas_excel, name='exportar_excel'),
   
     # Servicio
     path('servicio/', ServicioListView.as_view(), name='servicio_list'),

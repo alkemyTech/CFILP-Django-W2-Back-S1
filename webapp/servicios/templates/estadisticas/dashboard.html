@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Top 3 - Estadísticas</h1>
+
+  <div class="row">
+    <div class="col-md-4">
+      <h4 class="text-center">Empleados con más reservas</h4>
+      <table class="table table-sm table-striped text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Empleado</th>
+            <th>Cantidad</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in empleados_top %}
+          <tr>
+            <td>{{ e.empleado__nombre }}</td>
+            <td>{{ e.total }}</td>
+            <td>{{ e.porcentaje }}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-4">
+      <h4 class="text-center">Coordinadores más elegidos</h4>
+      <table class="table table-sm table-striped text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Coordinador</th>
+            <th>Cantidad</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in coordinadores_top %}
+          <tr>
+            <td>{{ c.coordinador__nombre }}</td>
+            <td>{{ c.total }}</td>
+            <td>{{ c.porcentaje }}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-4">
+      <h4 class="text-center">Servicios más solicitados</h4>
+      <table class="table table-sm table-striped text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Servicio</th>
+            <th>Cantidad</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in servicios_top %}
+          <tr>
+            <td>{{ s.servicio__nombre }}</td>
+            <td>{{ s.total }}</td>
+            <td>{{ s.porcentaje }}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    </div>
+      <div class="text-center mt-4">
+        <a href="{% url 'ranking_completo' %}" class="btn btn-dark text-warning btn-sm">
+            Ver ranking completo
+        </a>
+    </div>
+  <p class="text-muted text-center mt-4">Total de reservas analizadas: {{ total_reservas }}</p>
+</div>
+{% endblock %}

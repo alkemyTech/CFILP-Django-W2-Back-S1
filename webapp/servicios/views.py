@@ -3,7 +3,77 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, V
 from django.urls import reverse_lazy
 from .models import (Empleado, Cliente, Servicio, Reserva, Coordinador)
 from .forms import EmpleadoForm, CoordinadorForm, ReservaForm, ServicioForm, ClienteForm
+from django.db.models import Count
+import openpyxl
+from django.http import HttpResponse
 
+def estadisticas_view(request):
+    empleados, coordinadores, servicios, total_reservas = obtener_ranking_reservas()
+
+    # Top 3 + porcentaje
+    empleados = empleados[:3]
+    coordinadores = coordinadores[:3]
+    servicios = servicios[:3]
+
+    for grupo in [empleados, coordinadores, servicios]:
+        for item in grupo:
+            item["porcentaje"] = round((item["total"] / total_reservas) * 100, 2) if total_reservas else 0
+
+    context = {
+        'empleados_top': empleados,
+        'coordinadores_top': coordinadores,
+        'servicios_top': servicios,
+        'total_reservas': total_reservas,
+    }
+
+    return render(request, 'estadisticas/dashboard.html', context)
+def ranking_completo_view(request):
+    empleados, coordinadores, servicios, _ = obtener_ranking_reservas()
+
+    context = {
+        'empleados': empleados,
+        'coordinadores': coordinadores,
+        'servicios': servicios,
+    }
+
+    return render(request, 'estadisticas/ranking_completo.html', context)
+
+def exportar_estadisticas_excel(request):
+
+    empleados, coordinadores, servicios, total = obtener_ranking_reservas()
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Ranking completo"
+
+    # Hoja 1: Empleados
+    ws_empleados = wb.active
+    ws_empleados.title = "Empleados"
+    ws_empleados.append(["Empleado", "Cantidad", "%"])
+    for e in empleados:
+        porcentaje = round((e["total"] / total) * 100, 2) if total else 0
+        ws_empleados.append([e["empleado__nombre"], e["total"], f"{porcentaje}%"])
+
+    # Hoja 2: Coordinadores
+    ws_coordinadores = wb.create_sheet(title="Coordinadores")
+    ws_coordinadores.append(["Coordinador", "Cantidad", "%"])
+    for c in coordinadores:
+        porcentaje = round((c["total"] / total) * 100, 2) if total else 0
+        ws_coordinadores.append([c["coordinador__nombre"], c["total"], f"{porcentaje}%"])
+
+    # Hoja 3: Servicios
+    ws_servicios = wb.create_sheet(title="Servicios")
+    ws_servicios.append(["Servicio", "Cantidad", "%"])
+    for s in servicios:
+        porcentaje = round((s["total"] / total) * 100, 2) if total else 0
+        ws_servicios.append([s["servicio__nombre"], s["total"], f"{porcentaje}%"])
+
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = 'attachment; filename=ranking_completo.xlsx'
+    wb.save(response)
+    return response
 
 # View
 class HomeView(TemplateView):   
@@ -213,3 +283,15 @@ class CoordinadorInactivosListView(ListView):
 
 #endregion
 
+
+def obtener_ranking_reservas():
+    from .models import Reserva
+    from django.db.models import Count
+
+    total = Reserva.objects.count()
+
+    empleados = Reserva.objects.values('empleado__nombre').annotate(total=Count('id')).order_by('-total')
+    coordinadores = Reserva.objects.values('coordinador__nombre').annotate(total=Count('id')).order_by('-total')
+    servicios = Reserva.objects.values('servicio__nombre').annotate(total=Count('id')).order_by('-total')
+
+    return empleados, coordinadores, servicios, total
