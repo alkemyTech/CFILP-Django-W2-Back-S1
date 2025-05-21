@@ -23,7 +23,7 @@
 
 .header-bonk {
     background-color:#1c191a;
-    height: 280px;
+    height: 30vh;
     padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -31,7 +31,7 @@
 }
 
 .logo {
-    height: 280px;
+    height: 30vh;
 }
 
 .btn-inicio {
@@ -53,7 +53,6 @@
 /* === CENTRADO DEL CONTENIDO EN HOME === */
 
 .home-contenedor {
-    height: calc(80vh - 140px);
     display: flex;
     justify-content: center;
     align-items: center;
