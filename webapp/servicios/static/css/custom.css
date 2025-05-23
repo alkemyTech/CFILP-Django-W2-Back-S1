@@ -23,37 +23,56 @@
 
 .header-bonk {
     background-color:#1c191a;
-    height: 280px;
     padding: 1.5rem 2rem;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    position: relative; /* necesario para que logout-fixed se ubique correctamente */
 }
 
 .logo {
-    height: 280px;
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    max-height: 220px;   /* tamaño base del logo en escritorio */
 }
 
-.btn-inicio {
+.btn-inicio { /*Botón cerrar sesión */
     border: 1px solid #f4b324;
     color: white;
     background-color: transparent;
     font-size: 1rem;
-    padding: 0.7rem 1.7rem;
-    align-self: flex-end;
-    margin-bottom: -13rem;
+    padding: 0.2rem 0.8rem;
+    margin-bottom: 0;
+}
+.header-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .btn-inicio:hover {
     background-color: #f4b324;
     color: #1c191a;
 }
-
+.logout-fixed {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+     display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
 
 /* === CENTRADO DEL CONTENIDO EN HOME === */
 
 .home-contenedor {
-    height: calc(80vh - 140px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,3 +87,34 @@
     margin-bottom: 3rem;
 }
 
+/* Estilos responsive */
+@media (max-width: 768px) {
+     .logo {
+        max-height: 190px;
+    }
+
+    .header-bonk {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-logo {
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .header-links {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .btn-inicio {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+    }
+}

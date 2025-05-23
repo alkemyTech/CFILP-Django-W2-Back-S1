@@ -23,11 +23,37 @@
             <!-- <img src="{% static 'img/logo.png' %}" alt="Logo Bonk" class="logo"> -->
             <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="Logo Bonk" class="logo"></a>
         </div>
-        <!-- 
-        <div class="header-inicio">
-            <a href="{% url 'home' %}" class="btn btn-inicio">Inicio</a>
+        {% if user.is_authenticated %}
+        <div class="header-links">
+            
+            {% if request.resolver_match.url_name != 'home' %}
+            {% if request.resolver_match.url_name != 'servicio_list' %}
+            <a href="{% url 'servicio_list' %}" class="btn btn-inicio">Servicios</a>
+            {% endif %}
+            {% if request.resolver_match.url_name != 'cliente_list' %}
+            <a href="{% url 'cliente_list' %}" class="btn btn-inicio">Clientes</a>
+            {% endif %}
+            {% if request.resolver_match.url_name != 'empleado_list' %}
+            <a href="{% url 'empleado_list' %}" class="btn btn-inicio">Empleados</a>
+            {% endif %}
+            {% if request.resolver_match.url_name != 'coordinador_list' %}
+            <a href="{% url 'coordinador_list' %}" class="btn btn-inicio">Coordinadores</a>
+            {% endif %}
+            {% if request.resolver_match.url_name != 'reserva_list' %}
+            <a href="{% url 'reserva_list' %}" class="btn btn-inicio">Reservas</a>
+            {% endif %}
+            {% if request.resolver_match.url_name != 'estadisticas' %}
+            <a href="{% url 'estadisticas' %}" class="btn btn-inicio">Estadísticas</a>
+            {% endif %}
+            {% endif %}
+
+            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-inicio">Cerrar sesión</button>
+            </form>
         </div>
-        -->
+        {% endif %}
+
     </header>    
 
     <!-- Mensajes del sistema -->
