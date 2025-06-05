@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonk Eventos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="#">BONK EVENTOS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <img src="{% static 'img/logo.png' %}" alt="Logo Bonk Eventos">
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios" class="container text-center py-5">
+        <h2 class="mb-4" style="color: #ffcc00; font-weight: bold;">Servicios</h2>
+        <div class="row g-4">
+
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card servicio-card h-100">
+                    <img src="{% static 'img/salon.jpg' %}" class="card-img-top" alt="Servicio">
+                    <div class="card-body">
+                        <h4>Salón de eventos</h4>
+                        <p>Espacio moderno para eventos sociales o corporativos. Capacidad hasta 200 personas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card servicio-card h-100">
+                    <img src="{% static 'img/catering.jpg' %}" class="card-img-top" alt="Servicio">
+                    <div class="card-body">
+                        <h4>Servicio de lunch</h4>
+                        <p>Servicio de comida gourmet para eventos con menús personalizados y atención completa.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card servicio-card h-100">
+                    <img src="{% static 'img/luzdj.jpg' %}" class="card-img-top" alt="Servicio">
+                    <div class="card-body">
+                        <h4>DJ y Animación</h4>
+                        <p>Sonido, luces y DJ profesional para fiestas, bodas y celebraciones.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card servicio-card h-100">
+                    <img src="{% static 'img/decoracion15.jpg' %}" class="card-img-top" alt="Servicio">
+                    <div class="card-body">
+                        <h4>Decoración para fiestas de 15 años</h4>
+                        <p>Temáticas personalizadas, ambientación con luces, flores, mesas dulces y rincones
+                            fotográficos para un festejo inolvidable.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card servicio-card h-100">
+                    <img src="{% static 'img/fotografia.jpg' %}" class="card-img-top" alt="Servicio">
+                    <div class="card-body">
+                        <h4>Fotografía y video profesionals</h4>
+                        <p>Capturamos cada instante de tu evento con calidad HD, edición personalizada y entrega digital
+                            o en álbumes físicos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card servicio-card h-100">
+                    <img src="{% static 'img/casamiento.jpg' %}" class="card-img-top" alt="Servicio">
+                    <div class="card-body">
+                        <h4>Decoración para fiestas de casamientos</h4>
+                        <p>Diseño elegante y romántico para bodas, con detalles únicos en cada rincón: centros de mesa,
+                            iluminación ambiental y ceremonia.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Mensaje destacable -->
+    <section class="mensaje">
+        <h3>¡Hacemos realidad tu evento!</h3>
+        <p>Ambientes únicos, servicios completos y momentos inolvidables. ¡Reservá hoy!</p>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="container contacto py-5">
+        <h2 class="mb-4 " style="color: #ffcc00;">Contacto</h2>
+        <div class="d-flex justify-content-center">
+
+            <!-- Notificación tipo toast -->
+            <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="toast align-items-center text-bg-success border-0 show" role="alert" aria-live="assertive"
+                    aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            {{ message }}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Cerrar"></button>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <form method="post" action="{% url 'contacto' %}" class="bg-light p-4 rounded shadow w-100"
+                style="max-width: 600px;">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                <div class="contacto-texto fs-5 mt-2 mb-3">
+                    <h3 class="fw-bold"><i class=""></i> ¡Escribinos!</h3>
+                    <p class="text-muted">¿Tenés dudas, ideas o querés reservar? Completá el formulario y te respondemos
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Tu nombre completo"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="ejemplo@correo.com"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea name="mensaje" id="mensaje" class="form-control" rows="4"
+                        placeholder="Escribí tu mensaje acá..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-warning w-100 fw-bold">
+                    <i></i> Enviar
+                </button>
+            </form>
+
+
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-icons mb-3">
+            <i class="bi bi-instagram"></i>
+            <i class="bi bi-whatsapp"></i>
+            <i class="bi bi-envelope"></i>
+        </div>
+        <p>©2025 Bonk Eventos - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

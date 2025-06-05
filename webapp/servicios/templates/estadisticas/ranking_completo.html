@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Ranking Completo</h2>
+
+  <div class="row">
+    <div class="col-md-4">
+      <h5 class="text-center">Empleados</h5>
+      <table class="table table-sm table-bordered text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Empleado</th>
+            <th>Reservas</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in empleados %}
+          <tr>
+            <td>{{ e.empleado__nombre }}</td>
+            <td>{{ e.total }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-4">
+      <h5 class="text-center">Coordinadores</h5>
+      <table class="table table-sm table-bordered text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Coordinador</th>
+            <th>Reservas</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in coordinadores %}
+          <tr>
+            <td>{{ c.coordinador__nombre }}</td>
+            <td>{{ c.total }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-4">
+      <h5 class="text-center">Servicios</h5>
+      <table class="table table-sm table-bordered text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>Servicio</th>
+            <th>Reservas</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in servicios %}
+          <tr>
+            <td>{{ s.servicio__nombre }}</td>
+            <td>{{ s.total }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{% url 'estadisticas' %}" class="btn btn-dark text-warning btn-sm">Volver al resumen</a>
+    <a href="{% url 'exportar_excel' %}" class="btn btn-dark text-warning btn-sm">Exportar a Excel</a>
+    <p></p>
+  </div>
+</div>
+{% endblock %}
